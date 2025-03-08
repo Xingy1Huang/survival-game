@@ -168,51 +168,51 @@ class Bomb(pygame.sprite.Sprite):
 
 
 
-class Superpower(pygame.sprite.Sprite):
+# class Superpower(pygame.sprite.Sprite):
 
 
-  def __init__(self, image, scale, x, y):  
-    pygame.sprite.Sprite.__init__(self)
-    width = image.get_width()  
-    height = image.get_height()
-    #scale image by specified scale size
-    self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
-    self.rect = self.image.get_rect()
-    self.rect.center = (x, y)
+#   def __init__(self, image, scale, x, y):  
+#     pygame.sprite.Sprite.__init__(self)
+#     width = image.get_width()  
+#     height = image.get_height()
+#     #scale image by specified scale size
+#     self.image = pygame.transform.scale(image, (int(width * scale), int(height * scale)))
+#     self.rect = self.image.get_rect()
+#     self.rect.center = (x, y)
 
 
-  def update(self):
-      keystate = pygame.key.get_pressed()
-      if keystate[pygame.K_w]:
-        self.rect.y -= 7
-      elif keystate[pygame.K_s]:
-        self.rect.y += 7
-      elif keystate[pygame.K_a]:
-        self.rect.x -= 7
-      elif keystate[pygame.K_d]:
-        self.rect.x += 7
-      if self.rect.x>screen_width:
-        self.rect.x = 0
-      if self.rect.y>screen_height:
-        self.rect.y = 0
-      if self.rect.x<0:
-        self.rect.x = screen_width
-      if self.rect.y<0:
-        self.rect.y = screen_height
-
-
-
+#   def update(self):
+#       keystate = pygame.key.get_pressed()
+#       if keystate[pygame.K_w]:
+#         self.rect.y -= 7
+#       elif keystate[pygame.K_s]:
+#         self.rect.y += 7
+#       elif keystate[pygame.K_a]:
+#         self.rect.x -= 7
+#       elif keystate[pygame.K_d]:
+#         self.rect.x += 7
+#       if self.rect.x>screen_width:
+#         self.rect.x = 0
+#       if self.rect.y>screen_height:
+#         self.rect.y = 0
+#       if self.rect.x<0:
+#         self.rect.x = screen_width
+#       if self.rect.y<0:
+#         self.rect.y = screen_height
 
 
 
 
-def draw_text(color, text, font, size, x, y, surface):
-    font_name = pygame.font.match_font(font)
-    Font = pygame.font.Font(font_name, size)
-    text_surface = Font.render(text, True, color)
-    text_rect = text_surface.get_rect()
-    text_rect.center = (x,y)
-    surface.blit(text_surface,text_rect)
+
+
+
+# def draw_text(color, text, font, size, x, y, surface):
+#     font_name = pygame.font.match_font(font)
+#     Font = pygame.font.Font(font_name, size)
+#     text_surface = Font.render(text, True, color)
+#     text_rect = text_surface.get_rect()
+#     text_rect.center = (x,y)
+#     surface.blit(text_surface,text_rect)
 
 
 
@@ -313,7 +313,7 @@ enemy_group.add(enemy)
 
 
 superpower_img = pygame.image.load("images/cheese.jpg")
-superpower = Superpower(superpower_img, 20, 250, 250)
+superpower = Superpower(superpower_img, 8, 250, 250)
 superpower_group = pygame.sprite.Group()
 superpower_group.add(superpower)  # add player object to player group
 
@@ -438,6 +438,31 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
+        
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_r:  # Restart game on "R"
+                score = 0
+                level = 1
+                game_state = "game"
+
+                # Reset player position
+                player.rect.center = (400, 400)
+
+                # Clear enemies, bombs, and superpowers
+                enemy_group.empty()
+                bomb_group.empty()
+                superpower_group.empty()
+
+                # Spawn initial enemy
+                enemy_x, enemy_y = checking_distance(player.rect.x, player.rect.y)
+                enemy_speed = random.randint(1, 2)
+                enemy = Enemy(cat_img, 0.09, enemy_x, enemy_y, enemy_speed)
+                enemy_group.add(enemy)
+
+                # Spawn initial superpower
+                superpower = Superpower(superpower_img, 8, 250, 250)
+                superpower_group.add(superpower)
+
 
 
     if game_state == "menu":
@@ -451,7 +476,7 @@ while True:
         if score >= 5:
             game_state = "level"  # Move to level transition screen
 
-
+        
         if restart_btn.draw():
           score = 0  # Reset score
           level = 1  # Reset level to 1
