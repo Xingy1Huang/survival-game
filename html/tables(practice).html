@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WELCOME TO HTML!</title>
+</head>
+<style>
+    table {
+        /* border-collapse: collapse; */
+        border: 0px solid black;
+        text-align: center;
+        border-spacing: 10px;
+        border-radius: 10px;
+    }
+
+    th,
+    td {
+        width: 30%;
+        border: 1px solid black;
+        padding: 5px 20px;
+        height: 200px;
+        width: 200px;
+    }
+
+    th {
+        background-color: #e6e6e6;
+    }
+    .changebackgroundcolor{
+        background-color: (255,255,255);
+    }
+
+    .changebackgroundcolor:hover{
+        background-color: rgb(217, 227, 240);
+    }
+    .changebackgroundcolorheading{
+        background-color: (255,255,255);
+    }
+
+    .changebackgroundcolorheading:hover{
+        background-color: rgb(163, 177, 197);
+    }
+</style>
+
+<body>
+    <table>
+        <!-- Row 1: Headers -->
+        <tr>
+            <th class="changebackgroundcolorheading">Name</th>
+            <th class="changebackgroundcolorheading">Age</th>
+            <th class="changebackgroundcolorheading">Contact</th>
+        </tr>
+
+        <!-- Row 2: Data -->
+        <tr>
+            <td class="changebackgroundcolor">Rachel</td>
+            <td class="changebackgroundcolor">13</td>
+            <td class="changebackgroundcolor">(450)456-7609</td>
+        </tr>
+
+        <!-- Row 3: Data -->
+        <tr>
+            <td class="changebackgroundcolor">Ben</td>
+            <td class="changebackgroundcolor">30</td>
+            <td class="changebackgroundcolor">(800)349-1831</td>
+        </tr>
+    </table>
+</body>
+
+</html>
